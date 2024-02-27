@@ -10,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.btpit.nmedia.ui.theme._10Theme
+import ru.btpit.nmedia.ui.theme.YpTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            _10Theme {
+            YpTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
+fun Greeting( modifier: Modifier = Modifier) {
     Text(
         text = "Мы учимся в БТПИТ!",
         modifier = modifier
@@ -40,7 +41,7 @@ fun Greeting(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    _10Theme {
+    YpTheme {
         Greeting()
     }
 }
