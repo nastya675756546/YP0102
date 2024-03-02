@@ -1,47 +1,33 @@
 package ru.btpit.nmedia
 
 import android.os.Bundle
+import android.widget.Adapter
 import androidx.appcompat.app.AppCompatActivity
 import ru.btpit.nmedia.databinding.ActivityMainBinding
 import androidx.activity.viewModels
+import androidx.lifecycle.GeneratedAdapter
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import ru.btpit.nmedia.PostRepositoryInMemoryImpl.*
+import ru.btpit.nmedia.databinding.PostCardBinding
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), PostAdapter.Listener {
+    private val viewModel: PostViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val postViewModel: PostViewModel by viewModels()
-        postViewModel.data.observe(this) { post ->
-            with(binding) {
-                author.text = post.author
-                text.text = post.text
-                dataPublish.text = post.dataPublish
-                hertNumber.text = convertToString(post.hertNumber)
-                shareNumber.text = convertToString(post.shareNumber)
-                if (post.isLike)
-                    hert.setImageResource(R.drawable.heart_red_24)
-                else
-                    hert.setImageResource(R.drawable.heart_24)
-
-            }
-        }
-
-        binding.hert.setOnClickListener{
-            postViewModel.like()
-        }
-        binding.share.setOnClickListener{
-            postViewModel.share()
+        val adapter = PostAdapter(this)
+        binding.recycler.adapter = adapter
+        viewModel.data.observe(this){posts ->
+            adapter.list = posts
         }
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
-        private fun convertToString(count:Int):String{
-            return when(count){
-                in 0..<1_000 -> count.toString()
-                in 1_000..<1_000_000 -> ((count/100).toFloat()/10).toString() + "K"
-                in 1_000_000..<1_000_000_000 -> ((count/100_000).toFloat()/10).toString() + "M"
-                else -> "B"
-            }
-        }
+    override fun onClickLike(post: Post) {
+        viewModel.like(post.id)
     }
+
+    override fun onClickShare(post: Post) {
+        viewModel.share(post.id)
+    }
+}
