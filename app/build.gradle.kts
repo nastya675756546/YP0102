@@ -7,6 +7,8 @@ android {
     namespace = "ru.btpit.nmedia"
     compileSdk = 34
 
+    buildFeatures.viewBinding = true
+
     defaultConfig {
         applicationId = "ru.btpit.nmedia"
         minSdk = 28
