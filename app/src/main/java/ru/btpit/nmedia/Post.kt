@@ -6,6 +6,6 @@ data class Post(
     val dataPublish:String,
     var hertNumber:Int,
     var shareNumber:Int,
-    var isLike:Boolean = false,
+    val isLike:Boolean,
     var watchingNumber:Int
 )
