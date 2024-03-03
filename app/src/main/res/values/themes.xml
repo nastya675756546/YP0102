@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.Yp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Yp" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/teal_200</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 

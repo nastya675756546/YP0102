@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), PostAdapter.Listener {
     override fun onClickShare(post: Post) {
         viewModel.share(post.id)
     }
-    override fun cancelEditPost(post: Post,binding: PostCardBinding) {
+    override fun onClickPost(post: Post) {
 
         viewModel.removeId(post.id)
     }
