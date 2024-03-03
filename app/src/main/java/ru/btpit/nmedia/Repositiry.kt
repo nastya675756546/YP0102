@@ -8,11 +8,12 @@ interface PostRepository {
     fun get(): LiveData<List<Post>>
     fun like(id:Int)
     fun share(id:Int)
+    fun removeId(id:Int)
 }
 
 class PostRepositoryInMemoryImpl : PostRepository {
 
-    private var post = listOf(
+    private var posts = listOf(
         Post(
             id = 1,
             author = "Образовательная среда для студентов",
@@ -35,12 +36,12 @@ class PostRepositoryInMemoryImpl : PostRepository {
         )
 
     )
-    private val data = MutableLiveData(post)
+    private val data = MutableLiveData(posts)
 
     override fun get(): LiveData<List<Post>> = data
     override fun like(id: Int) {
 
-        post = post.map {
+        posts = posts.map {
             if (it.id != id) it else {
                 if (it.isLike)
                     it.hertNumber--
@@ -49,17 +50,22 @@ class PostRepositoryInMemoryImpl : PostRepository {
                 it.copy(isLike = !it.isLike)
             }
         }
-        data.value = post
+        data.value = posts
     }
 
     override fun share(id: Int) {
-        post = post.map {
+        posts = posts.map {
             if (it.id != id)
                 it
             else
                 it.copy(shareNumber = it.shareNumber + 1)
         }
-        data.value = post
+        data.value = posts
+    }
+
+    override fun removeId(id: Int) {
+        posts = posts.filter { it.id != id }
+        data.value = posts
     }
 
     class PostViewModel : ViewModel() {
@@ -67,5 +73,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
         val data = repository.get()
         fun like(id: Int) = repository.like(id)
         fun share(id: Int) = repository.share(id)
+        fun removeId(id: Int) = repository.removeId(id)
     }
 }

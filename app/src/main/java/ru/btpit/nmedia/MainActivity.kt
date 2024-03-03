@@ -1,5 +1,9 @@
 package ru.btpit.nmedia
-
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.PopupMenu
+import androidx.activity.viewModels
+import androidx.core.view.get
 import android.os.Bundle
 import android.widget.Adapter
 import androidx.appcompat.app.AppCompatActivity
@@ -29,5 +33,9 @@ class MainActivity : AppCompatActivity(), PostAdapter.Listener {
 
     override fun onClickShare(post: Post) {
         viewModel.share(post.id)
+    }
+    override fun cancelEditPost(post: Post,binding: PostCardBinding) {
+
+        viewModel.removeId(post.id)
     }
 }

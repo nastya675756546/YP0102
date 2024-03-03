@@ -31,6 +31,9 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
                 share.setOnClickListener {
                     listener.onClickShare(post)
                 }
+                close.setOnClickListener {
+                    listener.cancelEditPost(post, binding)
+                }
             }
         }
     }
@@ -47,6 +50,7 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
     interface Listener{
         fun onClickLike(post: Post)
         fun onClickShare(post: Post)
+        fun cancelEditPost(post:Post,binding: PostCardBinding)
     }
 }
 

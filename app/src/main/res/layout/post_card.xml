@@ -36,6 +36,18 @@
         app:layout_constraintStart_toEndOf="@+id/picher"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/close_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,RtlHardcoded" />
+
     <TextView
         android:id="@+id/data_publish"
         android:layout_width="wrap_content"
