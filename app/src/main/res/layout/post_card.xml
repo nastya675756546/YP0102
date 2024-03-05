@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width= "match_parent"
+    android:layout_margin="5dp"
+    android:paddingBottom="2dp"
+    android:background="@drawable/background_border"
     android:layout_height="wrap_content"
     tools:context=".MainActivity">
     <ImageView
@@ -59,112 +62,153 @@
         app:layout_constraintStart_toEndOf="@+id/picher"
         app:layout_constraintTop_toTopOf="@+id/author" />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="\t BARRIER \n \t Именно для этих целей ConstraintLayout предлагает\n специальный компонент — Barrier."
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/picher"
-        tools:ignore="MissingConstraints" />
+
     <FrameLayout
         android:id="@+id/frameContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@+id/picher">
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+
+            android:text="\t BARRIER \n \t Именно для этих целей ConstraintLayout предлагает\n специальный компонент — Barrier."
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints" />
         <EditText android:id="@+id/editTextContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:textSize="35sp"
-            android:text="Текст"
-            app:layout_constraintTop_toBottomOf="@+id/picher"
-            android:padding="10dp"/>
+            android:visibility="gone"
+            android:singleLine="false"
+            android:text="Текст"/>
     </FrameLayout>
-    <ImageButton
-        android:id="@+id/hert"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/heart_24"
-        android:background="#00FFFFFF"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints,RtlHardcoded" />
-
-    <TextView
-        android:id="@+id/hert_number"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/frameURL"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="999"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintStart_toEndOf= "@+id/hert"
-        tools:ignore="MissingConstraints" />
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/frameContent">
+        <TextView
+            android:id="@+id/textURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:text="https://www.youtube.com/watch?v=ErMSHiQRnc8"
+            tools:ignore="MissingConstraints" />
+        <EditText android:id="@+id/editTextURL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:singleLine="false"
+            android:text="Текст"/>
+        <ImageView
+            android:id="@+id/imageViewUrl"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone"/>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/share"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintStart_toEndOf="@+id/hert"
-        android:button="@drawable/share"
-        tools:ignore="DuplicateIds" />
-    <TextView
-        android:id="@+id/share_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="999"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintStart_toEndOf= "@+id/share"
-        tools:ignore="MissingConstraints" />
-    <TextView
-        android:id="@+id/watching"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@drawable/watching_24"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintEnd_toEndOf= "parent"
-        tools:ignore="MissingConstraints" />
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/watching_number"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/likePanel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text= "600"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:layout_constraintEnd_toEndOf= "parent"
-        tools:ignore="MissingConstraints" />
-    <ImageButton
-        android:id="@+id/menu_click"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/menu_24"
-        android:background="#00FFFFFF"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints,RtlHardcoded" />
+        app:layout_constraintTop_toBottomOf="@+id/frameURL">
+
+        <ImageButton
+            android:id="@+id/hert"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/heart_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/hert_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="999"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hert"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/share"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="50dp"
+            android:button="@drawable/share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hert"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds" />
+
+        <TextView
+            android:id="@+id/share_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="999"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/share"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/watching"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/watching_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/watching_number"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/watching_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/menu_click"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            tools:ignore="MissingConstraints" />
+
+        <ImageButton
+            android:id="@+id/menu_click"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/menu_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints,RtlHardcoded" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/share"
+        app:layout_constraintTop_toBottomOf="@id/likePanel"
         app:layout_constraintStart_toStartOf="parent">
         <Button
             android:id="@+id/Cancel"

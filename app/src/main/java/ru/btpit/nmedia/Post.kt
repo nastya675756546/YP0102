@@ -3,6 +3,7 @@ data class Post(
     var id:Int,
     val author:String,
     var text:String,
+    var url:String,
     val dataPublish:String,
     var hertNumber:Int,
     var shareNumber:Int,
