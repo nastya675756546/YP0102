@@ -1,11 +1,11 @@
 package  ru.btpit.nmedia
 data class Post(
-    val id:Int,
+    var id:Int,
     val author:String,
-    val text:String,
+    var text:String,
     val dataPublish:String,
     var hertNumber:Int,
     var shareNumber:Int,
-    val isLike:Boolean = false,
+    val isLike:Boolean,
     var watchingNumber:Int
 )

@@ -3,6 +3,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.btpit.nmedia.databinding.PostCardBinding
+import android.view.View
+import android.annotation.SuppressLint
 
 class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     var list = emptyList<Post>()
@@ -17,6 +19,7 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
             binding.apply {
                 author.text = post.author
                 text.text = post.text
+                text.setText(post.text)
                 dataPublish.text = post.dataPublish
 
                 hertNumber.text = convertToString(post.hertNumber)
@@ -32,11 +35,24 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
                     listener.onClickShare(post)
                 }
                 close.setOnClickListener {
-                    listener.onClickPost(post)
+                    listener.onClickRemove(post)
+                }
+
+                this.menuClick.setOnClickListener {
+                    listener.onClickMore(post,it, binding)
+                }
+                Cancel.setOnClickListener {
+                    listener.cancelEditPost(post,binding)
+                }
+                Create.setOnClickListener {
+                    listener.saveEditPost(post,binding)
+                }
+                if (post.id==0) listener.editModeOn(binding, "")
                 }
             }
         }
-    }
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = PostCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding)
@@ -48,9 +64,15 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
     override fun getItemCount() :Int = list. size
 
     interface Listener{
+
+
         fun onClickLike(post: Post)
         fun onClickShare(post: Post)
-        fun onClickPost(post:Post)
+        fun onClickRemove(post: Post)
+        fun onClickMore(post:Post, view: View, binding: PostCardBinding)
+        fun cancelEditPost(post:Post,binding: PostCardBinding)
+        fun saveEditPost(post:Post, binding: PostCardBinding)
+        fun editModeOn(binding: PostCardBinding,content:String)
     }
 }
 
