@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.btpit.nmedia.databinding.PostCardBinding
 import android.view.View
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import com.bumptech.glide.Glide
 
 class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     var list = emptyList<Post>()
@@ -19,7 +22,26 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
             binding.apply {
                 author.text = post.author
                 text.text = post.text
-                text.setText(post.text)
+                editTextContent.setText(post.text)
+
+                textURL.text = post.url
+                editTextURL.setText(post.url)
+                if (post.url.startsWith("https://")) {
+                    imageViewUrl.visibility = View.VISIBLE
+                    imageViewUrl.setOnClickListener {
+                        val intent = Intent()
+                        intent.setAction(Intent.ACTION_VIEW)
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+                        intent.setData(Uri.parse(post.url))
+                        binding.root.context.startActivity(intent)
+                    }
+                    Glide.with(binding.root.context)
+                        .load(getURLImageVideo(post.url))
+                        .into(imageViewUrl)
+                }
+                else
+                    imageViewUrl.visibility = View.GONE
+
                 dataPublish.text = post.dataPublish
 
                 hertNumber.text = convertToString(post.hertNumber)
@@ -75,7 +97,12 @@ class PostAdapter(private val listener: Listener):RecyclerView.Adapter<PostAdapt
         fun editModeOn(binding: PostCardBinding,content:String)
     }
 }
+@Suppress("SpellCheckingInspection")
+fun getURLImageVideo(url:String):String{
+    return  "https://img.youtube.com/vi/${if(url.split("v=").lastIndex == 1) url.split("v=")[1]
+    else url.split("?si")[0].split("/").last()}/sddefault.jpg"
 
+}
 @OptIn(ExperimentalStdlibApi::class)
 private fun convertToString(count:Int):String{
     return when(count){

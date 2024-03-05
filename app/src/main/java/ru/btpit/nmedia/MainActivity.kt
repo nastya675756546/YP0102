@@ -61,6 +61,16 @@ class MainActivity : AppCompatActivity(), PostAdapter.Listener {
 
     override fun onClickShare(post: Post) {
         viewModel.share(post.id)
+
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT,post.author+"\n"+post.text+"\n"+post.url)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(intent, "Поделиться")
+        startActivity(shareIntent)
+
     }
 
     override fun onClickRemove(post: Post) {
@@ -81,8 +91,11 @@ class MainActivity : AppCompatActivity(), PostAdapter.Listener {
         with(binding)
         {
             text.visibility = View.INVISIBLE
-
             editTextContent.visibility = View.VISIBLE
+
+            textURL.visibility = View.INVISIBLE
+            editTextURL.visibility = View.VISIBLE
+            imageViewUrl.visibility = View.GONE
 
             if (content!="")
                 editTextContent.setText(content)
@@ -96,19 +109,20 @@ class MainActivity : AppCompatActivity(), PostAdapter.Listener {
         with(binding)
         {
             text.visibility = View.VISIBLE
-
-            editTextContent.visibility = View.INVISIBLE
+            editTextContent.visibility = View.GONE
+            textURL.visibility = View.VISIBLE
+            editTextURL.visibility = View.GONE
 
             constraintEdit.visibility = View.GONE
+
         }
-        if (binding.text.text.toString() == "" && binding.editTextContent.text.toString() == "")
-            viewModel.removeId(post.id)
+
     }
 
     override fun saveEditPost(post: Post, binding: PostCardBinding) {
         viewModel.editById(
             post.id,
-            post.author,
+            binding.editTextURL.text.toString(),
             binding.editTextContent.text.toString()
         )
         cancelEditPost(post, binding)
